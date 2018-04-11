@@ -45,6 +45,7 @@ void renderBoard(Board & pb, Board & ob){
     //clearScreen(1);
 }
 
+//Gets the opponent's action
 void getOpponentAction(Board & playerBoard, Board & opponentBoard){
     // Go through hand and play cards that the opponent can afford to play
     for(int i = 0; i < opponentBoard.getHandSize(); i++){
