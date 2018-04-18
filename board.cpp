@@ -57,3 +57,27 @@ void Board::renderField(void){
             cout << endl;
     }
 }
+
+void Board::Board(void){
+	healthPoints = hp;	
+}
+
+void Board::addToDeckList(Card*){
+	deck.push_back(Card*);
+}
+
+void Board::draw(int){
+	for (int i = 0; i < int; i++){
+		hand.push_back(deck[i]);
+		deck.pop_back();
+	}
+} 
+
+void Board::playCardFromHand(int){
+	field.push_back(hand[int]);
+	hand.erase(hand.begin() + int);
+	
+	
+}
+
+
