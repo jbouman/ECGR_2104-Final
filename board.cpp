@@ -69,15 +69,25 @@ void Board::addToDeckList(Card*){
 void Board::draw(int){
 	for (int i = 0; i < int; i++){
 		hand.push_back(deck[i]);
-		deck.pop_back();
+		deck.erase(deck.begin() + int);
 	}
 } 
 
 void Board::playCardFromHand(int){
 	field.push_back(hand[int]);
 	hand.erase(hand.begin() + int);
+	mana = mana - field[int].getManaCost();
 	
-	
+}
+
+Card* Board::getCardOnField(int){
+	Card* fieldCard= field.at(int);
+	return fieldCard;
+}
+
+Card* Board::getCardinHand(int){
+	Card* handCard = hand.at(int);
+	return handCard;
 }
 
 
