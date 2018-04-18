@@ -59,7 +59,7 @@ void Board::renderField(void){
 }
 
 void Board::Board(void){
-	healthPoints = hp;	
+	hp = 2000;	
 }
 
 void Board::addToDeckList(Card*){
@@ -75,7 +75,7 @@ void Board::draw(int){
 
 void Board::playCardFromHand(int){
 	field.push_back(hand[int]);
-	hand.erase(hand.begin() + int);
+	hand.erase(hand.at(int));
 	mana = mana - field[int].getManaCost();
 	
 }
@@ -90,4 +90,47 @@ Card* Board::getCardinHand(int){
 	return handCard;
 }
 
+int Board::getHP(){
+	return hp;
+}
 
+void Board::setHP(){
+	hp = int;
+}
+
+int Board::getHandSize(){
+	int vSize;
+	vSize = hand.size();
+	return vSize;
+}
+
+int Board::getHandSize(){
+	int hSize;
+	hSize = hand.size();
+	return hSize;
+}
+
+int Board::getFieldSize(){
+	int fSize;
+	fSize = field.size();
+	return fSize;
+}
+
+int Board::getMana(){
+	return mana;
+}
+
+void Board::setMana(int){
+	mana = int;
+} 
+
+void Board::discardCardFromField(int){
+	discard.push_back(field[int]);
+	field.erase(field.at(int));
+}
+
+void Board::unExhaustField(){
+	for (int i = 0; i < field.size(); i++){
+		field.at(i).unExhaust();
+	}
+}
