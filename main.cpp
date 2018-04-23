@@ -6,9 +6,9 @@
 #include <list>
 #include <string>
 #include <vector>
-#include "board.h"
-#include "goblin.h"
-#include "card.h"
+#include "board.cpp"
+#include "goblin.cpp"
+#include "card.cpp"
 
 using namespace std;
 
@@ -162,7 +162,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                         //Mana is dealt with inside the playCardFromHand function
                         return 0;
                     } else {
-                        cout << "That card costs " << playerBoard.getCardInHand(choice)->getManaCost << " mana to play, you only have " << playerBoard.getMana() << "." << endl;
+                        cout << "That card costs " << playerBoard.getCardInHand(choice)->getManaCost() << " mana to play, you only have " << playerBoard.getMana() << "." << endl;
                         return 0;
                     }
                 } else {
