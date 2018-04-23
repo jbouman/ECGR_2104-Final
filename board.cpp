@@ -1,4 +1,6 @@
 #include "board.h"
+#include <cstdlib>
+#include <vector>
 
 using namespace std;
 
@@ -58,35 +60,35 @@ void Board::renderField(void){
     }
 }
 
-void Board::Board(void){
+Board::Board(void){
 	hp = 2000;	
 }
 
-void Board::addToDeckList(Card*){
-	deck.push_back(Card*);
+void Board::addToDeckList(Card* C){
+	
+	deck.push_back(C);
 }
 
-void Board::draw(int){
-	for (int i = 0; i < int; i++){
+void Board::draw(int j){
+	for (int i = 0; i < j; i++){
 		hand.push_back(deck[i]);
-		deck.erase(deck.begin() + int);
+		deck.erase(deck.begin() + j);
 	}
 } 
 
-void Board::playCardFromHand(int){
-	field.push_back(hand[int]);
-	hand.erase(hand.at(int));
-	mana = mana - field[int].getManaCost();
-	
+void Board::playCardFromHand(int h){
+	mana = getMana() - hand.at(h)->getManaCost();
+	field.push_back(hand[h]);
+	hand.erase(hand.begin() + h);
 }
 
-Card* Board::getCardOnField(int){
-	Card* fieldCard= field.at(int);
+Card* Board::getCardOnField(int l){
+	Card* fieldCard= field.at(l);
 	return fieldCard;
 }
 
-Card* Board::getCardinHand(int){
-	Card* handCard = hand.at(int);
+Card* Board::getCardInHand(int k){
+	Card* handCard = hand[k];
 	return handCard;
 }
 
@@ -94,20 +96,14 @@ int Board::getHP(){
 	return hp;
 }
 
-void Board::setHP(){
-	hp = int;
+void Board::setHP(int o){
+	hp = o;
 }
 
 int Board::getHandSize(){
 	int vSize;
 	vSize = hand.size();
 	return vSize;
-}
-
-int Board::getHandSize(){
-	int hSize;
-	hSize = hand.size();
-	return hSize;
 }
 
 int Board::getFieldSize(){
@@ -120,13 +116,13 @@ int Board::getMana(){
 	return mana;
 }
 
-void Board::setMana(int){
-	mana = int;
+void Board::setMana(int p){
+	mana = p;
 } 
 
-void Board::discardCardFromField(int){
-	discard.push_back(field[int]);
-	field.erase(field.at(int));
+void Board::discardCardFromField(int m){
+	discard.push_back(field[m]);
+	field.erase(field.at(m));
 }
 
 void Board::unExhaustField(){
