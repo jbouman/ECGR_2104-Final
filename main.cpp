@@ -176,7 +176,48 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
             break;
         case 1:
             //Attack with a field card
-            
+            if (playerBoard.getFieldSize() > 0){
+                int choice2;
+                cout << "What card would you like to attack with? (0 - " << playerBoard.getFieldSize() - 1 << ")" << endl;
+                cin >> choice;
+                if (choice <= playerBoard.getFieldSize() - 1 && choice >= 0){
+                    if (!playerBoard.getCardOnField(choice)->isExhausted()){
+                        if (opponentBoard.getFieldSize() > 0) {
+                            //Attack card on field
+                            cout << "What card would you like to attack? (0 - " << opponentBoard.getFieldSize() - 1 << ")" << endl;
+                            int choice2;
+                            cin >> choice2;
+                            if (choice2 <= opponentBoard.getFieldSize() - 1 && choice2 >= 0){
+                                if (opponentBoard.getCardOnField(choice2)->getDefense() < playerBoard.getCardOnField(choice)->getAttack()){
+                                    cout << "Your " << playerBoard.getCardOnField(choice)->getName() << " destroyed the opponent's " << opponentBoard.getCardOnField(choice2)->getName() << "!" << endl;
+                                    opponentBoard.discardCardFromField(choice2);
+                                    renderBoard(playerBoard, opponentBoard);
+                                } else {
+                                    cout << "The target's defense is too high!" << endl;
+                                    return 0;
+                                }
+                            } else {
+                                cout << choice2 << " is not a valid space in their field." << endl;
+                                return 0;
+                            }
+                        } else {
+                            //Attack opponent himself
+                            cout << "Your opponent has no cards to defend him!" << endl;
+                            opponentBoard.setHP(opponentBoard.getHP() - playerBoard.getCardOnField(choice)->getAttack());
+                            return 0;
+                        }
+                    } else {
+                        cout << "That card is exhausted and can't attack this turn!" << endl;
+                        return 0;
+                    }
+                } else {
+                    cout << choice << " is not a valid space in your field." << endl;
+                    return 0;
+                }
+            } else {
+                cout << "You don't have any cards on the field!" << endl;
+                return 0;
+            }
             break;
         case 2:
             //End turn
