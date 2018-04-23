@@ -88,7 +88,11 @@ int main(int argc, char * arv[]){
         turn++;
         break;
     }
-    
+    if (pb.getHP > 0){
+        cout << "You win!" << endl;
+    } else {
+        cout << "You lose!" << endl;
+    }
     
     return 0;
 }
@@ -120,7 +124,7 @@ void getOpponentAction(Board & playerBoard, Board & opponentBoard){
     for(int i = 0; i < opponentBoard.getFieldSize(); i++){
         if(!opponentBoard.getCardOnField(i)->isExhausted()){
             // get target for attack
-            // look through all cards on player's board. If the card is capable of killing one of those, it will chose the first one as its target
+            // look through all cards on player's board. If the card is capable of killing one of those, it will choose the first one as its target
             int targetIndex = -1;
             for(int j = 0; j < playerBoard.getFieldSize(); j++){
                 if(opponentBoard.getCardOnField(i)->getAttack() > opponentBoard.getCardOnField(j)->getDefense()){
