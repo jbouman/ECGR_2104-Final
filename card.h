@@ -33,12 +33,12 @@ class Card{
         
 
         // Accessors and Mutators
-        string getName(void);
-        int getManaCost(void);
-        int getAttack(void);
-        int getDefense(void);
-        bool isExhausted(void);
-        void unExhaust(void);
+        virtual string getName(void);
+        virtual int getManaCost(void);
+        virtual int getAttack(void);
+        virtual int getDefense(void);
+        virtual bool isExhausted(void);
+        virtual void unExhaust(void);
 };
 
 #endif
