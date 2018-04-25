@@ -16,3 +16,27 @@ string Card::render(int line){
             return " ";
     }
 }
+
+virtual string getName(void){
+	return name;
+}
+
+virtual int getManaCost(void){
+	return manaCost;
+}
+virtual int getAttack(void){
+	return attack;
+}
+
+virtual int getDefense(void){
+	return defense;
+}
+
+virtual bool isExhausted(void){
+	exhausted = true;
+	return exhausted;
+}
+
+virtual void unExhaust(bool){
+	exhausted = false;
+}
