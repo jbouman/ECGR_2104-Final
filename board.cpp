@@ -122,11 +122,11 @@ void Board::setMana(int p){
 
 void Board::discardCardFromField(int m){
 	discard.push_back(field[m]);
-	field.erase(field.at(m));
+	field.erase(field.begin() +  m);
 }
 
 void Board::unExhaustField(){
 	for (int i = 0; i < field.size(); i++){
-		field.at(i).unExhaust();
+		field.at(i)->unExhaust();
 	}
 }
