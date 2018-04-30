@@ -1,17 +1,17 @@
-#ifndef CAT_H
-#define CAT_H
+#ifndef OGRE_H
+#define OGRE_H
 #include "card.h"
 
 #include <iostream>
 
 using namespace std;
 
-class Cat : public Card {
+class Ogre : public Card {
 	private:
 		
 	public:
 	
-	Cat(std::string, int, int, int); //Cat Constructor
+	Ogre(std::string, int, int, int); //Cat Constructor
 	virtual string render(int);	
 	
 
