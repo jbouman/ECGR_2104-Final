@@ -1,7 +1,7 @@
 #include "goblin.h"
 
 //Goblin constructor, may or may not be right
-//Goblin::Goblin(string name, int manaCost, int attack, int defense) : Card(name, manaCost, attack, defense);
+Goblin::Goblin(string name, int manaCost, int attack, int defense) : Card("Goblin", 1, 200, 100){}
 string Goblin::render(int line){
     
     switch(line){

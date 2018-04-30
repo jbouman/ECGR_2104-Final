@@ -19,7 +19,6 @@ void renderBoard(Board&, Board&);
 int main(int argc, char * arv[]){
     cout << "begin" << endl;
     srand(time(0));
-    
     // Set up Player board
     Board pb;
     // Create player deck and draw initial hand here:
@@ -43,14 +42,14 @@ int main(int argc, char * arv[]){
     // pb.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
     // pb.addToDeckList(Goblin);
-
+    
     pb.shuffleDeck();
     
     // Set up opponent board
     Board ob;
     // Create opponent deck and draw initial hand here:
     for (int i = 0; i < 20; i++)
-    ob.addToDeckList(new Goblin);
+    //ob.addToDeckList(new Goblin);
     // for (int i = 20; i < 20; i++)
     // ob.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
@@ -72,7 +71,6 @@ int main(int argc, char * arv[]){
     
     ob.shuffleDeck();
     
-    
     while(pb.getHP() > 0 && ob.getHP() > 0){
         int turn = rand() % 1;
         // Take turns here:
@@ -86,9 +84,13 @@ int main(int argc, char * arv[]){
         }
         
         turn++;
+        if (pb.getMana() < 10)
+        pb.setMana(pb.getMana() + 1);
+        if (ob.getMana() < 10)
+        ob.setMana(ob.getMana() + 1);
         break;
     }
-    if (pb.getHP > 0){
+    if (pb.getHP() > 0){
         cout << "You win!" << endl;
     } else {
         cout << "You lose!" << endl;
@@ -133,7 +135,7 @@ void getOpponentAction(Board & playerBoard, Board & opponentBoard){
                 }
             }
             if(targetIndex != -1){
-                // destory creature
+                // destroy creature
                 cout << "Opponent's " << opponentBoard.getCardOnField(i)->getName() << " destroyed your " << playerBoard.getCardOnField(targetIndex)->getName() << "!" << endl;
                 playerBoard.discardCardFromField(targetIndex);
                 renderBoard(playerBoard, opponentBoard);
@@ -225,6 +227,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
             break;
         case 2:
             //End turn
+            playerBoard.unExhaustField();
             return 1;
             break;
         default:

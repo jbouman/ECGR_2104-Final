@@ -22,7 +22,6 @@ class Card{
          * This will be used by derived classes.
          */
         Card(string, int, int, int);
-    
         /* Render
          *
          * This function is used to print the ASCII image
@@ -33,12 +32,12 @@ class Card{
         
 
         // Accessors and Mutators
-        virtual string getName(void);
-        virtual int getManaCost(void);
-        virtual int getAttack(void);
-        virtual int getDefense(void);
-        virtual bool isExhausted(void);
-        virtual void unExhaust(void);
+        string getName(void);
+        int getManaCost(void);
+        int getAttack(void);
+        int getDefense(void);
+        bool isExhausted(void);
+        void unExhaust(void);
 };
 
 #endif

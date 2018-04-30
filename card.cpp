@@ -1,4 +1,5 @@
 #include "card.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -16,27 +17,28 @@ string Card::render(int line){
             return " ";
     }
 }
+Card::Card(string name, int manaCost, int attack, int defense){}
 
-string getName(void){
+string Card::getName(void){
 	return name;
 }
 
-int getManaCost(void){
+int Card::getManaCost(void){
 	return manaCost;
 }
-int getAttack(void){
+int Card::getAttack(void){
 	return attack;
 }
 
-int getDefense(void){
+int Card::getDefense(void){
 	return defense;
 }
 
-bool isExhausted(void){
+bool Card::isExhausted(void){
 	exhausted = true;
 	return exhausted;
 }
 
-void unExhaust(bool){
+void Card::unExhaust(void){
 	exhausted = false;
 }

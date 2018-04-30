@@ -10,7 +10,7 @@ class Goblin : public Card {
     private:
     
     public:
-    
+    Goblin(string, int, int, int);
     Goblin(void);
     virtual string render(int);
 };
