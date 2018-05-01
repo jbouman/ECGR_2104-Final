@@ -11,7 +11,7 @@ class Ogre : public Card {
 		
 	public:
 	
-	Ogre(std::string, int, int, int); //Cat Constructor
+	Ogre(std::string, int, int, int); //Ogre Constructor || Smash Mouth plays everytime Ogre is played
 	virtual string render(int);	
 	
 

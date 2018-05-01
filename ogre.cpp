@@ -5,7 +5,7 @@ using namespace std;
 //Cat Constructor
 Ogre::Ogre(string name, int manaCost, int attack, int defense) : Card("Ogre", 2, 300, 600);
 
-string Cat::render(int line){
+string Ogre::render(int line){
     switch(line){
         case 0: return ".___________.";
         case 1: return "| Ogre      |";
