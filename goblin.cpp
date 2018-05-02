@@ -1,4 +1,7 @@
 #include "goblin.h"
+#include <cstdlib> //prob not necessary
+
+using namespace std;
 
 //Goblin constructor, may or may not be right
 Goblin::Goblin(string name, int manaCost, int attack, int defense) : Card("Goblin", 1, 200, 100){}

@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include <sstream>
 #include <list>
 #include <string>
@@ -16,14 +17,16 @@ void getOpponentAction(Board&, Board&);
 int getPlayerAction(Board&, Board&);
 void renderBoard(Board&, Board&);
 
+
 int main(int argc, char * arv[]){
     cout << "begin" << endl;
     srand(time(0));
     // Set up Player board
     Board pb;
     // Create player deck and draw initial hand here:
+    
     for (int i = 0; i < 20; i++)
-    pb.addToDeckList(new Goblin);
+    pb.addToDeckList(new Goblin("Goblin", 1, 200, 100));
     // for (int i = 20; i < 20; i++)
     // pb.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
@@ -45,11 +48,14 @@ int main(int argc, char * arv[]){
     
     pb.shuffleDeck();
     
+    pb.draw(5);
+    
+    
     // Set up opponent board
     Board ob;
     // Create opponent deck and draw initial hand here:
     for (int i = 0; i < 20; i++)
-    //ob.addToDeckList(new Goblin);
+    ob.addToDeckList(new Goblin("Goblin", 1, 200, 100));
     // for (int i = 20; i < 20; i++)
     // ob.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
@@ -71,13 +77,15 @@ int main(int argc, char * arv[]){
     
     ob.shuffleDeck();
     
+    ob.draw(5);
+    
     while(pb.getHP() > 0 && ob.getHP() > 0){
         int turn = rand() % 1;
         // Take turns here:
-        renderBoard(pb, ob);
+        //renderBoard(pb, ob);
         if (turn % 2 == 0){
             //Player turn
-            while (getPlayerAction(pb, ob) != 1){}
+            while (getPlayerAction(pb, ob) != 1);
         } else {
             // Enemy turn
             getOpponentAction(pb, ob);
@@ -88,7 +96,6 @@ int main(int argc, char * arv[]){
         pb.setMana(pb.getMana() + 1);
         if (ob.getMana() < 10)
         ob.setMana(ob.getMana() + 1);
-        break;
     }
     if (pb.getHP() > 0){
         cout << "You win!" << endl;
@@ -101,6 +108,8 @@ int main(int argc, char * arv[]){
 
 void renderBoard(Board & pb, Board & ob){
     // Render opponent field
+    ob.renderMana(); //Take this out eventually, no peeking!
+    ob.renderHand();
     ob.renderField();
     cout << endl;
     // Render player field
@@ -150,18 +159,23 @@ void getOpponentAction(Board & playerBoard, Board & opponentBoard){
 }
 
 int getPlayerAction(Board & playerBoard, Board & opponentBoard){
-    int choice = 3;
+    string input = "input here";
+    int choice = int(input.at(0)) - 48;
+    
+    renderBoard(playerBoard, opponentBoard);
     cout << "Your turn. What would you like to do?" << endl;
     cout << "0: Play card from hand" << endl;
     cout << "1: Attack with a field card" << endl;
     cout << "2: End turn" << endl;
-    cin >> choice;
+    cin >> input;
+    choice = int(input.at(0)) - 48;
     switch (choice){
         case 0:
             //Play card from hand
             if (playerBoard.getHandSize() > 0){
                 cout << "What card would you like to play? (0 - " << playerBoard.getHandSize() - 1 << ")" << endl;
-                cin >> choice;
+                cin >> input;
+                choice = int(input.at(0)) - 48;
                 if (choice <= playerBoard.getHandSize() - 1 && choice >= 0){
                     if (playerBoard.getCardInHand(choice)->getManaCost() <= playerBoard.getMana()){
                         playerBoard.playCardFromHand(choice);
@@ -172,7 +186,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                         return 0;
                     }
                 } else {
-                    cout << choice << " is not a valid space in your hand." << endl;
+                    cout << input << " is not a valid space in your hand." << endl;
                     return 0;
                 }
             } else {
@@ -185,14 +199,15 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
             if (playerBoard.getFieldSize() > 0){
                 int choice2;
                 cout << "What card would you like to attack with? (0 - " << playerBoard.getFieldSize() - 1 << ")" << endl;
-                cin >> choice;
+                cin >> input;
+                choice = int(input.at(0)) - 48;
                 if (choice <= playerBoard.getFieldSize() - 1 && choice >= 0){
                     if (!playerBoard.getCardOnField(choice)->isExhausted()){
                         if (opponentBoard.getFieldSize() > 0) {
                             //Attack card on field
                             cout << "What card would you like to attack? (0 - " << opponentBoard.getFieldSize() - 1 << ")" << endl;
-                            int choice2;
-                            cin >> choice2;
+                            cin >> input;
+                            choice2 = int(input.at(0)) - 48;
                             if (choice2 <= opponentBoard.getFieldSize() - 1 && choice2 >= 0){
                                 if (opponentBoard.getCardOnField(choice2)->getDefense() < playerBoard.getCardOnField(choice)->getAttack()){
                                     cout << "Your " << playerBoard.getCardOnField(choice)->getName() << " destroyed the opponent's " << opponentBoard.getCardOnField(choice2)->getName() << "!" << endl;
@@ -203,7 +218,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                                     return 0;
                                 }
                             } else {
-                                cout << choice2 << " is not a valid space in their field." << endl;
+                                cout << input << " is not a valid space in their field." << endl;
                                 return 0;
                             }
                         } else {
@@ -217,7 +232,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                         return 0;
                     }
                 } else {
-                    cout << choice << " is not a valid space in your field." << endl;
+                    cout << input << " is not a valid space in your field." << endl;
                     return 0;
                 }
             } else {
@@ -231,7 +246,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
             return 1;
             break;
         default:
-            cout << choice << " is not a valid input." << endl;
+            cout << input << " is not a valid input." << endl;
             return 0;
             break;
     }
