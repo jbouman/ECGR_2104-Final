@@ -17,7 +17,13 @@ string Card::render(int line){
             return " ";
     }
 }
-Card::Card(string name, int manaCost, int attack, int defense){}
+Card::Card(string Name, int mC, int att, int def){
+name = Name;
+manaCost = mC;
+attack = att;
+defense = def;
+
+}
 
 string Card::getName(void){
 	return name;
@@ -42,3 +48,13 @@ bool Card::isExhausted(void){
 void Card::unExhaust(void){
 	exhausted = false;
 }
+
+void Card::setManaCost(int mn){
+	manaCost = mn;
+}
+
+/*void Card::setAllStats(int mC1, a1, d1){
+	manaCost = mC1;
+	attack = a1;
+	defense = d1;
+}*/
