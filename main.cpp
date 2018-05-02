@@ -105,27 +105,50 @@ int main(int argc, char * arv[]){
     
     ob.draw(5);
     
-    int turn = rand() % 2;
-    while(pb.getHP() > 0 && ob.getHP() > 0){
+   	int turn = rand() % 2; //turn var will now represent the coinflip only
+	cout << "THIS IS TURN" << endl;
+	cout << turn << endl;
+	int mana1 = 1;
+	
+	if (turn == 0){
+	int mana1 = 1;
+	while(pb.getHP()> 0 && ob.getHP() > 0){
+		pb.draw(1);
+		while(getPlayerAction(pb, ob) != 1);
+		ob.draw(1);
+		getOpponentAction(pb, ob);
+		mana1++;
+		
+		if (pb.getMana() < 10){
+        pb.setMana(mana1);
         
-        // Take turns here:
-        //renderBoard(pb, ob);
-        if (turn % 2 == 0){
-            //Player turn
-            pb.draw(1);
-            while (getPlayerAction(pb, ob) != 1);
-        } else {
-            // Enemy turn
-            ob.draw(1);
-            getOpponentAction(pb, ob);
-        }
-        
-        turn++;
-        if (pb.getMana() < 10)
-        pb.setMana(pb.getMana() + 1);
         if (ob.getMana() < 10)
-        ob.setMana(ob.getMana() + 1);
+        ob.setMana(mana1);
+        
     }
+	}}
+	else{
+		int mana1 = 1;
+		while(pb.getHP()> 0 && ob.getHP() > 0){
+		
+		ob.draw(1);
+		getOpponentAction(pb, ob);
+		pb.draw(1);
+		while(getPlayerAction(pb, ob) != 1);
+		mana1++;
+		if (pb.getMana() < 10){
+        pb.setMana(mana1);
+        if (ob.getMana() < 10)
+        ob.setMana(mana1);
+        
+    }
+	}}
+	//if (pb.getMana() < 10){
+    //pb.setMana(pb.getMana() + 1);
+	//if (ob.getMana() < 10)
+    //ob.setMana(ob.getMana() + 1);
+        
+    
     if (pb.getHP() > 0){
         cout << "You win!" << endl;
     } else {
@@ -208,8 +231,9 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                 choice = int(input.at(0)) - 48;
                 if (choice <= playerBoard.getHandSize() - 1 && choice >= 0){
                     cout << playerBoard.getCardInHand(choice)->getManaCost() << " MANACOST" << endl;
-                    if (playerBoard.getCardInHand(choice)->getManaCost() * -1 <= playerBoard.getMana()){
-                        playerBoard.playCardFromHand(choice);
+                    if (playerBoard.getCardInHand(choice)->getManaCost() <= playerBoard.getMana()){
+                        
+						playerBoard.playCardFromHand(choice);
                         //Mana is dealt with inside the playCardFromHand function
                         return 0;
                     } else {
@@ -240,7 +264,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                             cin >> input;
                             choice2 = int(input.at(0)) - 48;
                             if (choice2 <= opponentBoard.getFieldSize() - 1 && choice2 >= 0){
-                                if (opponentBoard.getCardOnField(choice2)->getDefense() < playerBoard.getCardOnField(choice)->getAttack()){
+                                if (opponentBoard.getCardOnField(choice2)->getDefense() <= playerBoard.getCardOnField(choice)->getAttack()){
                                     cout << "Your " << playerBoard.getCardOnField(choice)->getName() << " destroyed the opponent's " << opponentBoard.getCardOnField(choice2)->getName() << "!" << endl;
                                     opponentBoard.discardCardFromField(choice2);
                                     renderBoard(playerBoard, opponentBoard);
