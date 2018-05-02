@@ -1,8 +1,13 @@
-//FIXME:
+/*FIXME:
 //Make enemy able to attack
 //Fix maxMana (sync to turn count)
 //Fix exhaustion (might have to uninvert it in the playerattack function)
 //
+//FIXME:
+//Make enemy able to attack
+//Fix maxMana (sync to turn count)
+//Fix exhaustion (might have to uninvert it in the playerattack function)
+*/
 #include <iostream>
 #include <cstdlib>
 #include <stdlib.h>
@@ -13,8 +18,17 @@
 #include <string>
 #include <vector>
 #include "board.cpp"
-#include "goblin.cpp"
 #include "card.cpp"
+#include "goblin.cpp"
+#include "cat.cpp"
+#include "viper.cpp"
+#include "dalek.cpp"
+#include "cyclops.cpp"
+#include "ogre.cpp"
+#include "giant.cpp"
+#include "robot.cpp"
+#include "bear.cpp"
+#include "seagull.cpp"
 
 using namespace std;
 
@@ -28,10 +42,19 @@ int main(int argc, char * arv[]){
     srand(time(0));
     // Set up Player board
     Board pb;
+    //pb.setMana(1);
     // Create player deck and draw initial hand here:
     
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 4; i++)
     pb.addToDeckList(new Goblin("Goblin", 1, 200, 100));
+    for (int i = 4; i < 8; i++)
+    pb.addToDeckList(new Cat("Cat", 1, 100, 100));
+    for (int i = 8; i < 12; i++)
+    pb.addToDeckList(new Viper("Viper", 2, 300, 100));
+    for (int i = 12; i < 16; i++)
+    pb.addToDeckList(new Dalek("Dalek", 5, 300, 700));
+    for (int i = 16; i < 20; i++)
+    pb.addToDeckList(new Cyclops("Cyclops", 5, 400, 400));
     // for (int i = 20; i < 20; i++)
     // pb.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
@@ -42,33 +65,31 @@ int main(int argc, char * arv[]){
     // pb.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
     // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
+    
     
     pb.shuffleDeck();
     
     pb.draw(5);
+    int goblinAttack = pb.getCardInHand(1)->getAttack();
+    int goblinDefense = pb.getCardInHand(1)->getDefense();
+    cout << goblinAttack << endl;
+    cout << goblinDefense << endl;
     
     
     // Set up opponent board
     Board ob;
+    ob.setMana(1);
     // Create opponent deck and draw initial hand here:
-    for (int i = 0; i < 20; i++)
-    ob.addToDeckList(new Goblin("Goblin", 1, 200, 100));
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
+    for (int i = 0; i < 4; i++)
+    ob.addToDeckList(new Goblin("Giant", 1, 200, 100));
+    for (int i = 4; i < 8; i++)
+    ob.addToDeckList(new Ogre("Ogre", 2, 300, 100));
+    for (int i = 8; i < 12; i++)
+    ob.addToDeckList(new Robot("Robot", 5, 300, 700));
+    for (int i = 12; i < 16; i++)
+    ob.addToDeckList(new Bear("Bear", 5, 400, 400));
+    for (int i = 16; i < 20; i++)
+    ob.addToDeckList(new Seagull("Seagull", 1, 100, 100));
     // for (int i = 20; i < 20; i++)
     // ob.addToDeckList(Goblin);
     // for (int i = 20; i < 20; i++)
