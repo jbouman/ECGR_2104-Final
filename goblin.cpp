@@ -1,12 +1,14 @@
 #include "goblin.h"
 
 //Goblin constructor, may or may not be right
-Goblin::Goblin(string name, int manaCost, int attack, int defense) : Card("Goblin", 1, 200, 100){}
+Goblin::Goblin(string Name, int manaCost, int attack, int defense) : Card("Goblin", 1, 200, 100) {
+	
+}
 string Goblin::render(int line){
     
     switch(line){
         case 0: return ".___________.";
-        case 1: return "|Goblin     |";
+        case 1: return "|Goblin    1|";
         case 2: return "|   ^___^   |";
         case 3: return "|  ( . . )  |";
         case 4: return "|     v     |";
@@ -17,4 +19,6 @@ string Goblin::render(int line){
             return " ";
     }
 }
+
+
 

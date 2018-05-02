@@ -11,7 +11,7 @@ class Viper : public Card {
 		
 	public:
 	
-	Viper(std::string, int, int, int); //Cyclops Constructor
+	Viper(std::string, int, int, int); //Viper Constructor
 	virtual string render(int);	
 	
 

@@ -9,7 +9,7 @@ Bear::Bear(string name, int manaCost, int attack, int defense) : Card("Bear", 2,
 string Bear::render(int line){
     switch(line){
         case 0: return ".___________.";
-        case 1: return "| Bear      |";
+        case 1: return "| Bear     2|";
         case 2: return "|  ^____^   |";
         case 3: return "| ( O  O )  |";
         case 4: return "| v(____)v  |";

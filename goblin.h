@@ -13,6 +13,7 @@ class Goblin : public Card {
     Goblin(string, int, int, int);
     Goblin(void);
     virtual string render(int);
+    //virtual void Card::setManaCost(int);
 };
 
 #endif

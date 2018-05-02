@@ -11,6 +11,8 @@ class Giant : public Card {
 		
 	public:
 	
+	//void setAll(std::string, int, int, int);
+	
 	Giant(std::string, int, int, int); //Giant Constructor
 	virtual string render(int);	
 	

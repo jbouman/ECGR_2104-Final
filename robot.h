@@ -11,7 +11,7 @@ class Robot : public Card {
 		
 	public:
 	
-	Robot(std::string, int, int, int); //Cat Constructor
+	Robot(std::string, int, int, int); //Robot Constructor
 	virtual string render(int);	
 	
 
