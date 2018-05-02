@@ -1,3 +1,8 @@
+//FIXME:
+//Make enemy able to attack
+//Fix maxMana (sync to turn count)
+//Fix exhaustion (might have to uninvert it in the playerattack function)
+//
 #include <iostream>
 #include <cstdlib>
 #include <stdlib.h>
@@ -79,15 +84,18 @@ int main(int argc, char * arv[]){
     
     ob.draw(5);
     
+    int turn = rand() % 2;
     while(pb.getHP() > 0 && ob.getHP() > 0){
-        int turn = rand() % 1;
+        
         // Take turns here:
         //renderBoard(pb, ob);
         if (turn % 2 == 0){
             //Player turn
+            pb.draw(1);
             while (getPlayerAction(pb, ob) != 1);
         } else {
             // Enemy turn
+            ob.draw(1);
             getOpponentAction(pb, ob);
         }
         
@@ -123,6 +131,7 @@ void renderBoard(Board & pb, Board & ob){
 }
 
 void getOpponentAction(Board & playerBoard, Board & opponentBoard){
+    cout << "ENEMY ACTION" << endl;
     // Go through hand and play cards that the opponent can afford to play
     for(int i = 0; i < opponentBoard.getHandSize(); i++){
         if(opponentBoard.getCardInHand(i)->getManaCost() <= opponentBoard.getMana()){
@@ -133,7 +142,7 @@ void getOpponentAction(Board & playerBoard, Board & opponentBoard){
    
     // Attack with all creatures not exhausted
     for(int i = 0; i < opponentBoard.getFieldSize(); i++){
-        if(!opponentBoard.getCardOnField(i)->isExhausted()){
+        if(opponentBoard.getCardOnField(i)->isExhausted()){
             // get target for attack
             // look through all cards on player's board. If the card is capable of killing one of those, it will choose the first one as its target
             int targetIndex = -1;
@@ -177,7 +186,8 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                 cin >> input;
                 choice = int(input.at(0)) - 48;
                 if (choice <= playerBoard.getHandSize() - 1 && choice >= 0){
-                    if (playerBoard.getCardInHand(choice)->getManaCost() <= playerBoard.getMana()){
+                    cout << playerBoard.getCardInHand(choice)->getManaCost() << " MANACOST" << endl;
+                    if (playerBoard.getCardInHand(choice)->getManaCost() * -1 <= playerBoard.getMana()){
                         playerBoard.playCardFromHand(choice);
                         //Mana is dealt with inside the playCardFromHand function
                         return 0;
@@ -204,7 +214,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                 if (choice <= playerBoard.getFieldSize() - 1 && choice >= 0){
                     if (playerBoard.getCardOnField(choice)->isExhausted()){
                         if (opponentBoard.getFieldSize() > 0) {
-                            //Attack card on field0
+                            //Attack card on field
                             cout << "What card would you like to attack? (0 - " << opponentBoard.getFieldSize() - 1 << ")" << endl;
                             cin >> input;
                             choice2 = int(input.at(0)) - 48;
@@ -225,6 +235,9 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                             //Attack opponent himself
                             cout << "Your opponent has no cards to defend him!" << endl;
                             opponentBoard.setHP(opponentBoard.getHP() - playerBoard.getCardOnField(choice)->getAttack());
+                            
+                            cout << "choice" << choice << endl;
+                            cout << "attack" << playerBoard.getCardOnField(choice)->getAttack() << endl;
                             return 0;
                         }
                     } else {
