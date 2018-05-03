@@ -38,6 +38,7 @@ class Card{
         int getDefense(void);
         bool isExhausted(void);
         void unExhaust(void);
+        void exhaust(void);
         void setManaCost(int);
         void setAllStats(int, int, int);
 };

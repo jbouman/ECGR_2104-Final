@@ -45,26 +45,27 @@ int main(int argc, char * arv[]){
     //pb.setMana(1);
     // Create player deck and draw initial hand here:
     
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 2; i++)
     pb.addToDeckList(new Goblin("Goblin", 1, 200, 100));
-    for (int i = 4; i < 8; i++)
+    for (int i = 2; i < 4; i++)
     pb.addToDeckList(new Cat("Cat", 1, 100, 100));
-    for (int i = 8; i < 12; i++)
+    for (int i = 4; i < 6; i++)
     pb.addToDeckList(new Viper("Viper", 2, 300, 100));
-    for (int i = 12; i < 16; i++)
+    for (int i = 6; i < 8; i++)
     pb.addToDeckList(new Dalek("Dalek", 5, 300, 700));
-    for (int i = 16; i < 20; i++)
+    for (int i = 8; i < 10; i++)
     pb.addToDeckList(new Cyclops("Cyclops", 5, 400, 400));
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // pb.addToDeckList(Goblin);
+    for (int i = 10; i < 12; i++)
+    pb.addToDeckList(new Goblin("Giant", 1, 200, 100));
+    for (int i = 12; i < 14; i++)
+    pb.addToDeckList(new Ogre("Ogre", 2, 300, 100));
+    for (int i = 14; i < 16; i++)
+    pb.addToDeckList(new Robot("Robot", 5, 300, 700));
+    for (int i = 16; i < 18; i++)
+    pb.addToDeckList(new Bear("Bear", 5, 400, 400));
+    for (int i = 18; i < 20; i++)
+    pb.addToDeckList(new Seagull("Seagull", 1, 100, 100));
+
     
     
     pb.shuffleDeck();
@@ -80,26 +81,27 @@ int main(int argc, char * arv[]){
     Board ob;
     ob.setMana(1);
     // Create opponent deck and draw initial hand here:
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 2; i++)
+    ob.addToDeckList(new Goblin("Goblin", 1, 200, 100));
+    for (int i = 2; i < 4; i++)
+    ob.addToDeckList(new Cat("Cat", 1, 100, 100));
+    for (int i = 4; i < 6; i++)
+    ob.addToDeckList(new Viper("Viper", 2, 300, 100));
+    for (int i = 6; i < 8; i++)
+    ob.addToDeckList(new Dalek("Dalek", 5, 300, 700));
+    for (int i = 8; i < 10; i++)
+    ob.addToDeckList(new Cyclops("Cyclops", 5, 400, 400));
+    for (int i = 10; i < 12; i++)
     ob.addToDeckList(new Goblin("Giant", 1, 200, 100));
-    for (int i = 4; i < 8; i++)
+    for (int i = 12; i < 14; i++)
     ob.addToDeckList(new Ogre("Ogre", 2, 300, 100));
-    for (int i = 8; i < 12; i++)
+    for (int i = 14; i < 16; i++)
     ob.addToDeckList(new Robot("Robot", 5, 300, 700));
-    for (int i = 12; i < 16; i++)
+    for (int i = 16; i < 18; i++)
     ob.addToDeckList(new Bear("Bear", 5, 400, 400));
-    for (int i = 16; i < 20; i++)
+    for (int i = 18; i < 20; i++)
     ob.addToDeckList(new Seagull("Seagull", 1, 100, 100));
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
-    // for (int i = 20; i < 20; i++)
-    // ob.addToDeckList(Goblin);
+
     
     ob.shuffleDeck();
     
@@ -134,6 +136,7 @@ int main(int argc, char * arv[]){
 		ob.draw(1);
 		getOpponentAction(pb, ob);
 		pb.draw(1);
+		//pb.unExhaustField();
 		while(getPlayerAction(pb, ob) != 1);
 		mana1++;
 		if (pb.getMana() < 10){
@@ -185,8 +188,9 @@ void getOpponentAction(Board & playerBoard, Board & opponentBoard){
     }
    
     // Attack with all creatures not exhausted
+    opponentBoard.unExhaustField();
     for(int i = 0; i < opponentBoard.getFieldSize(); i++){
-        if(opponentBoard.getCardOnField(i)->isExhausted()){
+        if(!opponentBoard.getCardOnField(i)->isExhausted()){
             // get target for attack
             // look through all cards on player's board. If the card is capable of killing one of those, it will choose the first one as its target
             int targetIndex = -1;
@@ -257,6 +261,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                 cin >> input;
                 choice = int(input.at(0)) - 48;
                 if (choice <= playerBoard.getFieldSize() - 1 && choice >= 0){
+                    cout << "EXHAUSE: " << playerBoard.getCardOnField(choice)->isExhausted() << endl;
                     if (!playerBoard.getCardOnField(choice)->isExhausted()){
                         if (opponentBoard.getFieldSize() > 0) {
                             //Attack card on field
@@ -267,6 +272,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                                 if (opponentBoard.getCardOnField(choice2)->getDefense() <= playerBoard.getCardOnField(choice)->getAttack()){
                                     cout << "Your " << playerBoard.getCardOnField(choice)->getName() << " destroyed the opponent's " << opponentBoard.getCardOnField(choice2)->getName() << "!" << endl;
                                     opponentBoard.discardCardFromField(choice2);
+                                    playerBoard.getCardOnField(choice)->exhaust();
                                     renderBoard(playerBoard, opponentBoard);
                                 } else {
                                     cout << "The target's defense is too high!" << endl;

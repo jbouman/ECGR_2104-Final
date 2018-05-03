@@ -49,10 +49,14 @@ void Card::unExhaust(void){
 	exhausted = false;
 }
 
+void Card::exhaust(void){
+    exhausted = true;
+    cout << "SHOULD EXHAUST CARD" << endl;
+}
+
 void Card::setManaCost(int mn){
 	manaCost = mn;
 }
-
 /*void Card::setAllStats(int mC1, a1, d1){
 	manaCost = mC1;
 	attack = a1;
