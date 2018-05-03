@@ -10,9 +10,9 @@ class Board{
         // The current amount of health.
         int hp;
         // The amount of mana available to spend.
-        int mana = 5;
+        int mana = 1;
         // The max amount of mana available per turn. Should be equal to the current turn.
-        int maxMana;
+        int maxMana = 10;
     
         /* deck
          * 

@@ -41,7 +41,7 @@ int Card::getDefense(void){
 }
 
 bool Card::isExhausted(void){
-	exhausted = true;
+	//exhausted = true;
 	return exhausted;
 }
 

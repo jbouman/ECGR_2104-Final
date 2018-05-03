@@ -257,7 +257,7 @@ int getPlayerAction(Board & playerBoard, Board & opponentBoard){
                 cin >> input;
                 choice = int(input.at(0)) - 48;
                 if (choice <= playerBoard.getFieldSize() - 1 && choice >= 0){
-                    if (playerBoard.getCardOnField(choice)->isExhausted()){
+                    if (!playerBoard.getCardOnField(choice)->isExhausted()){
                         if (opponentBoard.getFieldSize() > 0) {
                             //Attack card on field
                             cout << "What card would you like to attack? (0 - " << opponentBoard.getFieldSize() - 1 << ")" << endl;

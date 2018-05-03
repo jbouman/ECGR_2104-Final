@@ -21,7 +21,7 @@ void Board::shuffleDeck(void){
 
 
 void Board::renderMana(void){
-    cout << "MANA: " << mana << " " << maxMana;
+    //cout << "MANA: " << mana << " " << maxMana;
     for(int i = 1; i <= maxMana; i++){
         if(i <= mana)
             cout << "@ ";
@@ -77,7 +77,7 @@ void Board::draw(int j){
 } 
 
 void Board::playCardFromHand(int h){
-	mana = getMana() + hand.at(h)->getManaCost(); //this is adding the value because it's negative for some reason
+	mana = getMana() - hand[h]->getManaCost(); //this is adding the value because it's negative for some reason
 	field.push_back(hand[h]);
 	hand.erase(hand.begin() + h);
 }
@@ -130,3 +130,4 @@ void Board::unExhaustField(){
 		field.at(i)->unExhaust();
 	}
 }
+
